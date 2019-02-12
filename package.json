@@ -12,5 +12,8 @@
   "repository": {
     "type": "git",
     "url": "tinyApp_Project"
+  },
+  "dependencies": {
+    "express": "^4.16.4"
   }
 }
