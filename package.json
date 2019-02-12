@@ -1,0 +1,16 @@
+{
+  "name": "tinyapp_project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gideon Brasil",
+  "license": "ISC",
+  "keywords": [],
+  "description": "A full stack web app built with Node and Express that allows users to shorten long URLs",
+  "repository": {
+    "type": "git",
+    "url": "tinyApp_Project"
+  }
+}
