@@ -2,6 +2,9 @@ let express = require('express');
 let app = express();
 let PORT = 3000;
 
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({extended: true}));
+
 app.set('view engine', 'ejs');
 
 let urlDatabase = {
@@ -41,3 +44,19 @@ app.get('/urls/:shortURL', (req, res) => {
     res.render('urls_show', templateVars);
 });
 
+app.post('/urls', (req, res) => {
+    console.log(req.body);  // Log the POST request body to the console
+    res.send('OK');         // Respond with 'Ok' (we will replace this)
+});
+
+function generateRandomString() {
+    //generates a string of 6 random alphanumeric characters
+    let holder = '';
+    let randomPosibilities = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    for (let i = 0; i < 6; i++) {
+        holder += randomPosibilities.charAt(Math.floor(Math.random() * randomPosibilities.length));
+    }
+    // console.log(holder);
+    return holder;    
+}
+generateRandomString();
