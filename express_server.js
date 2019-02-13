@@ -1,6 +1,6 @@
 let express = require('express');
 let app = express();
-let PORT = 3000;
+let PORT = 8080;
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
@@ -46,7 +46,11 @@ app.get('/urls/:shortURL', (req, res) => {
 
 app.post('/urls', (req, res) => {
     console.log(req.body);  // Log the POST request body to the console
-    res.send('OK');         // Respond with 'Ok' (we will replace this)
+    let templateVars = {
+        URLs: urlDatabase,
+    };
+    res.status(200).send(templateVars);         // Respond with 'Ok' (we will replace this)
+    console.log(res);
 });
 
 function generateRandomString() {
