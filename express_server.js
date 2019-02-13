@@ -1,8 +1,8 @@
 let express = require('express');
 let app = express();
-let PORT = 8080;
+let PORT = 3000;
 
-app.set('viewe ngine', 'ejs');
+app.set('view engine', 'ejs');
 
 let urlDatabase = {
     'b2xVn2': 'http://www.lighthouselabs.ca',
@@ -23,4 +23,9 @@ app.get('/urls.json', (req, res) => {
 
 app.get('/hello', (req, res) => {
     res.send('<html><body>Hello <b>World</b></body></html>\n');
+});
+
+app.get('/urls', (req, res) => {
+    let templateVars = { URLs: urlDatabase,};
+    res.render('urls_index', templateVars);
 });
