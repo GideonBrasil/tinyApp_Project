@@ -13,8 +13,8 @@
     <!-- a use ejs to display a list or table of the URLs and their shortended forms -->
     <h2> Your Tiny URL list </h2>
     <ul> 
+        <a href='#'> Create new TinyURL</a>
       <% for (let key in URLs) { %>
-        <a href='#'> Click to shorten URL</a>
         <li><%= `Short URL: ${key} Long URL: ${URLs[key]}` %></li>
         <% } %>
     </ul>
