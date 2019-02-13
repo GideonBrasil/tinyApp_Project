@@ -11,12 +11,13 @@
 <body style="font-size:25px; padding:70px;">
     <!-- Add EJS code here -->
     <!-- a use ejs to display a list or table of the URLs and their shortended forms -->
-    <h2> Your Tiny URL list </h2>
-    <ul> 
-        <a href='/urls/:shortURL'> Create new TinyURL</a>
-      <% for (let key in URLs) { %>
-        <li><%= `Short URL: ${key} Long URL: ${URLs[key]}` %></li>
-        <% } %>
+    <h2> URLs </h2>
+        <a href='#'> Create new URL</a> <br></br>
+        
+        <ul> 
+            <p>Full URL: <%= longURL %></p>
+            <p>Tiny URL: <%= shortURL %></p>
+        </ul>
     </ul>
 </body>
 </html>
