@@ -8,15 +8,17 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   <title>TinyApp</title>
 </head>
-<body style="font-size:25px; padding:70px;">
+<body style="font-size:25px; padding:60px;">
     <!-- Add EJS code here -->
     <!-- a use ejs to display a list or table of the URLs and their shortended forms -->
     <!-- views/partials/_header.ejs-->
     <% include partials/_header.ejs %>
-    <ul> 
-        <a href='/urls/:shortURL'> Create new TinyURL</a>
+    <a href='/urls/:shortURL'> Create new TinyURL</a><br>
+    <br/>
+    <h3> My URLs </h3>
+    <ul>
       <% for (let key in URLs) { %>
-        <li><%= `Short URL: ${key} Long URL: ${URLs[key]}` %></li>
+        <li><%= `Short URL: ${key} Full URL: ${URLs[key]}` %></li>
         <% } %>
     </ul>
 </body>
