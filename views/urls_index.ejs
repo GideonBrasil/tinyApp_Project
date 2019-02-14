@@ -6,7 +6,7 @@
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" >
   <title>TinyApp</title>
 </head>
 <body style="font-size:20px; padding:55px;">
@@ -21,7 +21,7 @@
       <% for (let key in URLs) { %> <li> 
         <form method="POST" action="/urls/<%=key%>/delete">
           <!-- <button name="shortURL" value=<%=key%>></button></button> -->
-           <a> <%= `${key}: ${URLs[key]}` %> <button class="btn btn-primary"><i class="fa fa-trash"></i>Delete</button> </a>
+           <a> <%= `${key}: ${URLs[key]}` %> <button class="btn btn-primary">Delete <i class="fa fa-trash"></i></button> </a>
         </form>
         </li>
       <% } %>
