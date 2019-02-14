@@ -12,12 +12,19 @@
     <!-- Add EJS code here -->
     <!-- a use ejs to display a list or table of the URLs and their shortended forms -->
     <% include partials/_header.ejs %>
-        <a href='/urls/new'> Create new TinyURL</a> 
+    <a class="btn btn-primary" href='/urls/new' role="button"> Create new TinyURL</a> <a class="btn btn-primary" href='/urls' role="button"> View created TinyURLs</a></div>
         <br>
         <ul> 
-            <p>TinyURL for <%= longURL %></p>
-            <p><%= shortURL %></p>
+            <p><strong>TinyURL:</strong> <%= shortURL %> <strong> for </strong> <%= longURL %></p>
         </ul>
     </ul>
+    <!-- update operation using a post request "use form" -->
+    <form class="form-inline" action="/urls/<%= shortURL %>/edit" method="POST">
+        <div class="form-group mb-2">
+          <label for="longURL">Change current URL:</label>
+          <input class="form-control" type="text" name="longURL" placeholder="http://" value="http://" style="width: 300px; margin: 1em">
+          <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+      </form>
 </body>
 </html>

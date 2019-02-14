@@ -12,12 +12,12 @@ function generateRandomString() {
     // console.log(holder);
     return holder;    
 }
-
+// parses the input URL so that we can visualize it in req.body
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.set('view engine', 'ejs');
-
+// object to store TinyURLs and full URLs 
 let urlDatabase = {
     'b2xVn2': 'http://www.lighthouselabs.ca',
     '9sm5xK': 'http://www.google.com'
@@ -71,8 +71,14 @@ app.get('/urls/:shortURL', (req, res) => {
     res.render('urls_show', templateVars);
 });
 
-app.get('/u/:shortURL', (req, res) => {
+app.get('/urls/:shortURL', (req, res) => {
     // const longURL = ...
     const longURL = urlDatabase[req.params.shortURL];
     res.redirect(longURL);
+});
+// post request for the edit form
+app.post('/urls/:id/edit', (req, res) => {
+    console.log("THIS IS THE REQ.PARAMS", req.params)
+    urlDatabase[req.params.id] = req.body.longURL;
+    res.redirect('/urls');
 });
