@@ -12,11 +12,11 @@
     <!-- Add EJS code here -->
     <!-- a use ejs to display a list or table of the URLs and their shortended forms -->
     <% include partials/_header.ejs %>
-        <a href='/urls/new'> Create new URL</a> 
+        <a href='/urls/new'> Create new TinyURL</a> 
         <br>
         <ul> 
-            <p>Full URL: <%= longURL %></p>
-            <p>Tiny URL: <%= shortURL %></p>
+            <p>TinyURL for <%= longURL %></p>
+            <p><%= shortURL %></p>
         </ul>
     </ul>
 </body>

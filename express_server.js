@@ -55,7 +55,7 @@ app.post('/urls', (req, res) => {
     // pass TinyURL into database as an object and request body of longURL
     urlDatabase[randomURL] = req.body.longURL;
     // redirect to urls_index
-    res.redirect('/urls');
+    res.redirect(`/urls/${randomURL}`);
     // console.log(urlDatabase);
 });
 
