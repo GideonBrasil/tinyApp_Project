@@ -12,16 +12,18 @@
     <!-- Add EJS code here -->
     <!-- a use ejs to display a list or table of the URLs and their shortended forms -->
     <!-- views/partials/_header.ejs-->
-    <% include partials/_header.ejs %>
+    <% include partials/_header.ejs %>  
     <a href='/urls/new'> Create new TinyURL</a><br>
     <br/>
     <h3> My URLs </h3>
     <ul>
-      <% for (let key in URLs) { %>
-        <form method="POST" action="/urls/delete">Delete</form>
-        <button>Delete</button>
-        <li><%= `${key}: ${URLs[key]}` %></li>
-        <% } %>
+      <% for (let key in URLs) { %> <li> 
+        <form method="POST" action="/urls/<%=key%>/delete">
+          <!-- <button name="shortURL" value=<%=key%>></button></button> -->
+           <a></a> <%= `${key}: ${URLs[key]}` %> <button name="shortURL" value=<%=key%>>Delete</button> </a>
+        </form>
+        </li>
+      <% } %>
     </ul>
 </body>
 </html>
