@@ -26,6 +26,13 @@ function generateRandomString() {
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
 
+const user = {
+    'userID': {
+        id: 'userID',
+        email: 'userEmail',
+        password: 'userPassword'
+    }
+};
 
 // object to store TinyURLs and full URLs 
 let urlDatabase = {
@@ -55,6 +62,12 @@ app.get('/urls', (req, res) => {
     res.render('urls_index', templateVars);
 });
 
+app.get('/register', (req, res) => {
+    let templateVars = { URLs: urlDatabase, 
+        username: req.cookies['username']};
+    res.render('urls_register', templateVars);
+});
+
 app.post('/urls/:shortURL/delete', (req, res) => {
     delete  urlDatabase[req.params.shortURL];
     res.redirect('/urls');
@@ -62,6 +75,37 @@ app.post('/urls/:shortURL/delete', (req, res) => {
 
 app.post('/logout', (req, res) => {
     res.clearCookie('username');
+    res.redirect('/urls');
+});
+
+// post /register that 
+// 1. store new user objects from form
+// 2. adds new user object to global user object
+//      - user object should include id, email, password 
+//      - request body of keys output by forms in /register
+//      - use generateRandomString to generate random IDs for users
+// 3. set a user_id cookie with the newly generated IDs
+// 4. redirect user to /urls
+
+
+app.post('/register', (req, res) => {
+    const email = req.body.email;
+    console.log('email:', email);
+    const password = req.body.password;
+    console.log('password:', password);
+    const id = generateRandomString();
+    console.log('id:', id);
+    if (email === '' || password === '') {
+        res.send ('Email or password weren\'t filled in');
+    }
+    let userData = {
+            id,
+            email,
+            password,
+    };
+    user[id] = userData;
+
+    res.cookie('user_id', id);
     res.redirect('/urls');
 });
 
