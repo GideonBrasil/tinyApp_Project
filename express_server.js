@@ -56,6 +56,14 @@ app.get('/urls/new', (req, res) => {
     res.render('urls_new');
 });
 
+app.post('/login', (req, res) => {
+    // set a cookie named username to the string 
+    // incoming from the request body via the login form
+    res.cookie('username', req.body.username);
+    // console.log('Cookie username:', req.body.username);
+    res.redirect('urls');
+});
+
 app.post('/urls', (req, res) => {
     // console.log(req.body);  // Log the POST request body to the console
     // put the random string function into a variable
