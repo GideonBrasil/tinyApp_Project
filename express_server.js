@@ -1,6 +1,9 @@
 let express = require('express');
 let app = express();
 let PORT = 8080;
+var cookieParser = require('cookie-parser');
+
+app.use(cookieParser());
 
 function generateRandomString() {
     //generates a string of 6 random alphanumeric characters
