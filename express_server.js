@@ -7,7 +7,7 @@ app.set('view engine', 'ejs');
 
 app.get('/login', (req, res) => {
     let templateVars = {
-        username: req.cookies['username'],
+        username: users[req.cookies['user_id']],
     };
     res.render('login', templateVars);
 });
@@ -22,11 +22,14 @@ function generateRandomString() {
     // console.log(holder);
     return holder;    
 }
+
+// write function checkEmptyString and checkEmail   
+
 // parses the input URL so that we can visualize it in req.body
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
 
-const user = {
+const users = {
     'userID': {
         id: 'userID',
         email: 'userEmail',
@@ -58,13 +61,13 @@ app.get('/hello', (req, res) => {
 
 app.get('/urls', (req, res) => {
     let templateVars = { URLs: urlDatabase, 
-        username: req.cookies['username']};
+        username: users[req.cookies['user_id']]};
     res.render('urls_index', templateVars);
 });
 
 app.get('/register', (req, res) => {
     let templateVars = { URLs: urlDatabase, 
-        username: req.cookies['username']};
+        username: users[req.cookies['user_id']]};
     res.render('urls_register', templateVars);
 });
 
@@ -74,7 +77,7 @@ app.post('/urls/:shortURL/delete', (req, res) => {
 });
 
 app.post('/logout', (req, res) => {
-    res.clearCookie('username');
+    res.clearCookie('user_id');
     res.redirect('/urls');
 });
 
@@ -90,20 +93,18 @@ app.post('/logout', (req, res) => {
 
 app.post('/register', (req, res) => {
     const email = req.body.email;
-    console.log('email:', email);
     const password = req.body.password;
-    console.log('password:', password);
     const id = generateRandomString();
-    console.log('id:', id);
     if (email === '' || password === '') {
-        res.send ('Email or password weren\'t filled in');
+        res.sendStatus(400);
     }
+
     let userData = {
-            id,
-            email,
-            password,
+        id,
+        email,
+        password,
     };
-    user[id] = userData;
+    users[id] = userData;
 
     res.cookie('user_id', id);
     res.redirect('/urls');
@@ -111,7 +112,7 @@ app.post('/register', (req, res) => {
 
 app.get('/urls/new', (req, res) => {
     let templateVars = {
-        username: req.cookies['username']
+        username: users[req.cookies['user_id']]
     };
     res.render('urls_new', templateVars);
 });
@@ -119,7 +120,7 @@ app.get('/urls/new', (req, res) => {
 app.post('/login', (req, res) => {
     // set a cookie named username to the string 
     // incoming from the request body via the login form
-    res.cookie('username', req.body.username);
+    // res.cookie('username', req.body.username);
     // console.log('Cookie username:', req.body.username);
     res.redirect('urls');
 });
@@ -139,13 +140,13 @@ app.get('/urls/:shortURL', (req, res) => {
     let templateVars = 
     { shortURL: req.params.shortURL, 
         longURL: urlDatabase[req.params.shortURL],
-        username: req.cookies['username']};
+        username: users[req.cookies['user_id']]};
     res.render('urls_show', templateVars);
 });
 
 // post request for the edit form
 app.post('/urls/:id/edit', (req, res) => {
-    console.log('THIS IS THE REQ.PARAMS', req.params);
+
     urlDatabase[req.params.id] = req.body.longURL;
     res.redirect('/urls');
 });
