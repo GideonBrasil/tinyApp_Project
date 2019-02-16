@@ -15,16 +15,18 @@
     <!-- views/partials/_header.ejs-->
     <h3> Log into account </h3>
     <!-- email form -->
+    <div class="form-inline">
   <form class="form-inline" action="/login" method="POST">
-    <div class="form-group mb-2">
       <label for="longURL">Email:</label>
-      <input class="form-control" type="email" name="email" placeholder="master.yi@gmail.com" style="width: 300px; margin: 1em">
-    </div>
-    <div class="form-group mb-2">
+      <input type="email" name="email" placeholder="master.yi@gmail.com" style="width: 300px; margin: 1em">
       <label for="longURL">Password:</label>
-      <input class="form-control" type="password" name="password" placeholder="password" style="width: 300px; margin: 1em">
-    </div>
+      <input type="password" name="password" placeholder="password" style="width: 300px; margin: 1em">
     <button type="submit" class="btn btn-primary">Login</button>
   </form>
+  <p>&nbsp;&nbsp;</p>
+  <form class="form-inline" method="GET" action="/register">
+             <button type="submit" class="btn btn-primary">Register</button>
+</form>
+</div>
 </body>
 </html>

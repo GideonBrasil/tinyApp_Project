@@ -1,7 +1,7 @@
-let express = require('express');
-let app = express();
-let PORT = 8080;
-var cookieParser = require('cookie-parser');
+const express = require('express');
+const app = express();
+const PORT = 8080;
+const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 app.set('view engine', 'ejs');
 
@@ -119,7 +119,12 @@ app.get('/urls/new', (req, res) => {
     let templateVars = {
         username: users[req.cookies['user_id']]
     };
-    res.render('urls_new', templateVars);
+    if (users[req.cookies['user_id']]) {
+        res.render('urls_new', templateVars);
+    } else {
+        res.redirect('/login');
+    }
+    
 });
 
 app.post('/login', (req, res) => {
@@ -132,6 +137,14 @@ app.post('/login', (req, res) => {
     for (let storedUser in users) {
         if (users[storedUser].email === email) {
             res.cookie('user_id', storedUser);
+        }
+    }
+    if (email === '' || password === '') {
+        res.sendStatus(400);
+    }
+    for (let user in users) {
+        if (email === users[user].email) {
+            res.sendStatus(400);
         }
     }
     res.redirect('urls');

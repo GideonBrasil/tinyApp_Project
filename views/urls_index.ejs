@@ -14,8 +14,6 @@
     <!-- a use ejs to display a list or table of the URLs and their shortended forms -->
     <!-- views/partials/_header.ejs-->
     <% include partials/_header.ejs %>  
-    <a class="btn btn-primary btn-primary" href='/urls/new' role="button"> Create new TinyURL</a><br>
-    <br/>
     <h3> My URLs </h3>
     <ul>
       <% for (let key in URLs) { %> <li> 
