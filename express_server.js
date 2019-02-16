@@ -9,7 +9,7 @@ app.get('/login', (req, res) => {
     let templateVars = {
         username: users[req.cookies['user_id']],
     };
-    res.render('login', templateVars);
+    res.render('urls_login', templateVars);
 });
 
 function generateRandomString() {
@@ -71,12 +71,6 @@ app.get('/register', (req, res) => {
     res.render('urls_register', templateVars);
 });
 
-app.get('/login', (req, res) => {
-    let templateVars = { URLs: urlDatabase, 
-        username: users[req.cookies['user_id']]};
-    res.render('urls_login', templateVars);
-});
-
 app.post('/urls/:shortURL/delete', (req, res) => {
     delete  urlDatabase[req.params.shortURL];
     res.redirect('/urls');
@@ -104,6 +98,11 @@ app.post('/register', (req, res) => {
     if (email === '' || password === '') {
         res.sendStatus(400);
     }
+    for (let user in users) {
+        if (email === users[user].email) {
+            res.sendStatus(400);
+        }
+    }
 
     let userData = {
         id,
@@ -128,6 +127,13 @@ app.post('/login', (req, res) => {
     // incoming from the request body via the login form
     // res.cookie('username', req.body.username);
     // console.log('Cookie username:', req.body.username);
+    const email = req.body.email;
+    const password = req.body.password;
+    for (let storedUser in users) {
+        if (users[storedUser].email === email) {
+            res.cookie('user_id', storedUser);
+        }
+    }
     res.redirect('urls');
 });
 

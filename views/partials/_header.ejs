@@ -15,11 +15,15 @@
         
 <% } else { %>
 
-<form class="form-inline" method="POST" action="/login">
+<form class="form-inline" method="GET" action="/login">
         <div class="form-group mb-2">
-                 <label for="username">Username:</label>
-                 <input class="form-control" type="text" name="username" placeholder="Username" style="width: 300px; margin: 1em">
                  <button type="submit" class="btn btn-primary">Login</button>
+        </div>
+</form>
+
+<form class="form-inline" method="GET" action="/register">
+        <div class="form-group mb-2">
+                 <button type="submit" class="btn btn-primary">Register</button>
         </div>
 </form>
 
