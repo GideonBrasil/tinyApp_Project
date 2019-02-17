@@ -16,15 +16,21 @@
     <% include partials/_header.ejs %>  
     <h3> My URLs </h3>
     <ul>
-      <% for (let key in URLs) { %> <li> 
-        <form method="POST" action="/urls/<%=key%>/delete">
+      <% for (let key in URLs) { %> 
+          <% if (URLs[key].userID === userID) { %>
+          <li>
+        <form method="POST" action="/urls/<%=key%>/delete"> 
           <!-- <button name="shortURL" value=<%=key%>></button></button> -->
-          <a href="<%=URLs[key].longURL%>"><%= key %></a>: <%= URLs[key].longURL %>
+            <a href="<%=URLs[key].longURL%>"><%= key %></a>: <%= URLs[key].longURL %>
             <a class="btn btn-sm btn-info" href='/urls/<%=key%>' role="button">Edit </button></a>
-            <a><button class="btn btn-sm btn-danger">Delete <i class="fa fa-trash"></i></button> </a></a>
+            <button class="btn btn-sm btn-danger">Delete <i class="fa fa-trash"></i></button>
         </form>
         </li>
+        <% } %>
       <% } %>
     </ul>
+    <% if (!userID) { %>
+      <p> You must be logged in to create a new TinyURL!</p>
+    <% } %>  
 </body>
 </html>
