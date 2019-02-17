@@ -19,8 +19,7 @@
       <% for (let key in URLs) { %> <li> 
         <form method="POST" action="/urls/<%=key%>/delete">
           <!-- <button name="shortURL" value=<%=key%>></button></button> -->
-            <a href="<%=URLs[key]%>"><%= key %></a>: <%= URLs[key] %>
-            <a href="<%=URLs[key]%>"></a>
+          <a href="<%=URLs[key].longURL%>"><%= key %></a>: <%= URLs[key].longURL %>
             <a class="btn btn-sm btn-info" href='/urls/<%=key%>' role="button">Edit </button></a>
             <a><button class="btn btn-sm btn-danger">Delete <i class="fa fa-trash"></i></button> </a></a>
         </form>

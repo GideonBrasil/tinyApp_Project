@@ -34,14 +34,26 @@ const users = {
         id: 'userID',
         email: 'userEmail',
         password: 'userPassword'
+    },
+    'userID2': {
+        id: 'userID2',
+        email: 'userEmail2',
+        password: 'userPassword2'
     }
 };
 
 // object to store TinyURLs and full URLs 
-let urlDatabase = {
-    'b2xVn2': 'http://www.lighthouselabs.ca',
-    '9sm5xK': 'http://www.google.com'
+var urlDatabase = {
+    'b2xVn2': { 
+        longURL: 'http://www.lighthouselabs.ca',
+        id: 'userID'
+    },
+    '9sm5xK': { 
+        longURL: 'http://www.google.com', 
+        id: 'userID2'
+    }
 };
+
 
 app.get('/', (req, res) => {
     res.send('I love dis');
@@ -60,8 +72,10 @@ app.get('/hello', (req, res) => {
 });
 
 app.get('/urls', (req, res) => {
-    let templateVars = { URLs: urlDatabase, 
-        username: users[req.cookies['user_id']]};
+    let templateVars = { 
+        URLs: urlDatabase,
+        username: users[req.cookies['user_id']],
+    };
     res.render('urls_index', templateVars);
 });
 
@@ -80,16 +94,6 @@ app.post('/logout', (req, res) => {
     res.clearCookie('user_id');
     res.redirect('/urls');
 });
-
-// post /register that 
-// 1. store new user objects from form
-// 2. adds new user object to global user object
-//      - user object should include id, email, password 
-//      - request body of keys output by forms in /register
-//      - use generateRandomString to generate random IDs for users
-// 3. set a user_id cookie with the newly generated IDs
-// 4. redirect user to /urls
-
 
 app.post('/register', (req, res) => {
     const email = req.body.email;
@@ -117,7 +121,8 @@ app.post('/register', (req, res) => {
 
 app.get('/urls/new', (req, res) => {
     let templateVars = {
-        username: users[req.cookies['user_id']]
+        username: users[req.cookies['user_id']],
+        id: users[req.cookies['user_id']]
     };
     if (users[req.cookies['user_id']]) {
         res.render('urls_new', templateVars);
@@ -137,41 +142,45 @@ app.post('/login', (req, res) => {
     for (let storedUser in users) {
         if (users[storedUser].email === email) {
             res.cookie('user_id', storedUser);
+    
         }
-    }
-    if (email === '' || password === '') {
-        res.sendStatus(400);
-    }
-    for (let user in users) {
-        if (email === users[user].email) {
+        if (email === '' || password === '') {
             res.sendStatus(400);
         }
+        for (let user in users) {
+            if (email === users[user].email) {
+                res.sendStatus(400);
+            }
+        }
+        res.redirect('urls');
     }
-    res.redirect('urls');
 });
 
 app.post('/urls', (req, res) => {
-    // console.log(req.body);  // Log the POST request body to the console
+    // console.log(req.body);  // Log the POST request body to the consolpost
     // put the random string function into a variable
     let randomURL = generateRandomString();
     // pass TinyURL into database as an object and request body of longURL
-    urlDatabase[randomURL] = req.body.longURL;
+    urlDatabase[randomURL] = {
+        longURL: req.body.longURL,
+        userID: users[req.cookies['user_id']]
+    };
     // redirect to urls_index
     res.redirect(`/urls/${randomURL}`);
     // console.log(urlDatabase);
 });
 
 app.get('/urls/:shortURL', (req, res) => {
-    let templateVars = 
-    { shortURL: req.params.shortURL, 
-        longURL: urlDatabase[req.params.shortURL],
-        username: users[req.cookies['user_id']]};
+    let templateVars = { 
+        shortURL: req.params.shortURL, 
+        longURL: urlDatabase[req.params.shortURL].longURL,
+        username: users[req.cookies['user_id']]
+    };
     res.render('urls_show', templateVars);
 });
 
 // post request for the edit form
 app.post('/urls/:id/edit', (req, res) => {
-
     urlDatabase[req.params.id] = req.body.longURL;
     res.redirect('/urls');
 });
