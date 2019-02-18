@@ -4,10 +4,10 @@ TinyApp is a full stack web application built with Node and Express that allows 
 
 ## Final Project
 
-!["Click on the register button to create a user and use the Tiny"](tinyApp_Project/docs/urls_no_login.png)
-!["This is the register page. Register to use Tiny."](tinyApp_Project/docs/register_page.png)
-!["Create a TinyURL."](tinyApp_Project/docs/urls_show.png)
-!["Your created TinyURLs!"](tinyApp_Project/docs/urls_registered.png)
+!["Click on the register button to create a user and use the Tiny"](https://github.com/GideonBrasil/tinyApp_Project/docs/urls_no_login.png)
+!["This is the register page. Register to use Tiny."](https://github.com/GideonBrasil/tinyApp_Project/docs/register_page.png)
+!["Create a TinyURL."](https://github.com/GideonBrasil/tinyApp_Project/docs/urls_show.png)
+!["Your created TinyURLs!"](https://github.com/GideonBrasil/tinyApp_Project/docs/urls_registered.png)
 
 ## Dependencies
 
