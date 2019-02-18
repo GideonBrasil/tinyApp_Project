@@ -4,8 +4,8 @@ TinyApp is a full stack web application built with Node and Express that allows 
 
 ## Final Project
 
-[Click on the register button to create a user and use Tiny.](https://github.com/GideonBrasil/tinyApp_Project/blob/master/docs/urls_no_login.png?raw=true)
-Click on the register button to create a user and use Tiny.
+![urls login](https://github.com/GideonBrasil/tinyApp_Project/blob/master/docs/urls_no_login.png?raw=true)
+[Click on the register button to create a user and use Tiny.]
 
 ##
 
