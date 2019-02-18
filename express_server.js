@@ -108,11 +108,13 @@ app.post('/login', (req, res) => {
     const password = req.body.password;
     for (let storedUser in users) {
         if ((users[storedUser].email === email) && bcrypt.compareSync(password, users[storedUser].password)) {
-            req.session.user_id = storedUser;
+            req.session.user_id = (req.session.user_id) ? req.session.user_id : storedUser;
             res.redirect('/urls');
         }       
     }
-    res.sendStatus(400);
+    if (!req.session.user_id) {
+        res.sendStatus(400);
+    }
 });
 
 app.post('/logout', (req, res) => {
