@@ -54,7 +54,7 @@ let urlDatabase = {
 
 //Server routes
 app.get('/', (req, res) => {
-    res.redirect('/urls');
+    res.redirect('/register');
 });
 
 app.get('/urls.json', (req, res) => {
