@@ -4,9 +4,9 @@ const PORT = 8080;
 const cookieSession = require('cookie-session');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
-
 //Cookie session for encrypted passwords
 app.use(cookieSession({
     name: 'session',
@@ -19,12 +19,12 @@ app.use(cookieSession({
 //Functions used on server
 function generateRandomString() {
     //generates a string of 6 random alphanumeric characters
-    let holder = '';
+    let randomString = '';
     let randomPosibilities = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     for (let i = 0; i < 6; i++) {
-        holder += randomPosibilities.charAt(Math.floor(Math.random() * randomPosibilities.length));
+        randomString += randomPosibilities.charAt(Math.floor(Math.random() * randomPosibilities.length));
     }
-    return holder;    
+    return randomString;    
 }
 
 //Server Databases
@@ -54,7 +54,7 @@ let urlDatabase = {
 
 //Server routes
 app.get('/', (req, res) => {
-    res.redirect('/register');
+    res.redirect('/login');
 });
 
 app.get('/urls.json', (req, res) => {
@@ -71,10 +71,22 @@ app.get('/register', (req, res) => {
 
 app.post('/register', (req, res) => {
     const email = req.body.email;
+    console.log('email:', email);
     const password = bcrypt.hashSync(req.body.password, 10);
+    console.log('password:', password);
     const id = generateRandomString();
-    if (!email || !password) {
+    if (!email && !req.body.password) {
+        res.send('You need an email and a password to create a new account');
         res.sendStatus(400);
+    }
+    if (!email) {
+        res.send('Use an email to create a new account');
+        res.sendStatus(400);
+    }
+    if (req.body.password === '') {
+        res.send('Your new account can\'t have a blank password');
+        res.sendStatus(400);
+
     }
     for (let user in users) {
         if (email === users[user].email) {
