@@ -90,6 +90,7 @@ app.post('/register', (req, res) => {
     }
     for (let user in users) {
         if (email === users[user].email) {
+            res.send('Email already belongs to a registered user. Use a different email to create a new account');
             res.sendStatus(400);
         }
     }
@@ -121,6 +122,7 @@ app.post('/login', (req, res) => {
         }       
     }
     if (!req.session.user_id) {
+        res.send('You must fill in your email and password if you are a previously registered user.');
         res.sendStatus(400);
     }
 });
